@@ -41,13 +41,14 @@ export default class Map {
     }
     let row = Math.floor(Math.random() * this.chunkSize);
     let col = Math.floor(Math.random() * this.chunkSize);
-    if (chunk.terrain[row][col].name === "grass") {
+    //if (chunk.terrain[row][col].name === "grass") {
       chunk.blocks = new Array(this.chunkSize);
       for(let i = 0;i < this.chunkSize;i++) {
         chunk.blocks[i] = new Array(this.chunkSize);
       }
       chunk.blocks[row][col] = new Tile("wood", new Vector(row, col));
-    }
+    //}
+    console.log(chunk);
     this.chunks.push(chunk);
     return chunk;
   }
@@ -81,6 +82,7 @@ export default class Map {
     // get chunks near player
     let currentChunkX = Math.floor((-(offsetX) - canvas.width/2)/this.chunkSize/this.tileSize);
     let currentChunkY = Math.floor((-(offsetY) - canvas.height/2)/this.chunkSize/this.tileSize);
+    //if(currentChunkX!==0 || currentChunkY!==0) return;
     // loop through all blocks
     for(let rowIndex = 0;rowIndex < this.viewDistance;rowIndex++) {
       for(let colIndex = 0;colIndex < this.viewDistance;colIndex++) {
@@ -123,6 +125,32 @@ export default class Map {
   }
 
   drawBlocks (ctx, offsetX, offsetY) {
-
+    ctx.globalAlpha = 1;
+    // get chunks near player
+    let currentChunkX = Math.floor((-(offsetX) - canvas.width/2)/this.chunkSize/this.tileSize);
+    let currentChunkY = Math.floor((-(offsetY) - canvas.height/2)/this.chunkSize/this.tileSize);
+    // loop through all blocks
+    for(let rowIndex = 0;rowIndex < this.viewDistance;rowIndex++) {
+      for(let colIndex = 0;colIndex < this.viewDistance;colIndex++) {
+        // calculate chunk x and y
+        let x = currentChunkX + rowIndex;
+        let y = currentChunkY + colIndex;
+        // get the surounding chunk
+        let chunk = this.getChunkAt(x, y);
+        // draw the chunk on screen
+        chunk.blocks.forEach((row) => {
+          // loop through all tiles in the row
+          row.forEach((tile) => {
+            // draw tile
+            ctx.fillStyle = tile.color;
+            // for some reason having these lines compacted increases preformance
+            if (tile.vector) {
+              console.log(tile.vector)
+              ctx.drawImage(tile.texture,Math.round(tile.vector.x * this.tileSize + offsetX + canvas.width/2),Math.round(tile.vector.y * this.tileSize + offsetY + canvas.height/2),this.tileSize,this.tileSize);
+            }
+          });
+        });
+      }
+    }
   }
 }

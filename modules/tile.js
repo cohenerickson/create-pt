@@ -32,8 +32,8 @@ export default class Tile {
 
   // turn number from noise function into a tile object
   toTile(int) {
-    if(typeof(_int) === "String") {
-      if(_int === "wood") return new Wood();
+    if(typeof(int) == 'string') {
+      if(int === "wood") return new Wood();
     } else {
       if(int < -0.5) return new Water();
       else if(int < -0.4) return new Sand();
@@ -101,9 +101,9 @@ class Snow {
 
 class Wood {
   constructor () {
-    this.color = "white";
+    this.color = undefined;
     this.texture = wood;
-    this.name = "snow";
-    this.collidable = false;
+    this.name = "wood";
+    this.collidable = true;
   }
 }

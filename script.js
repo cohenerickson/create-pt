@@ -6,19 +6,20 @@ import Player from './modules/player.js';
 const options = {
   fps: 120,
   tileSize: 60,
-  chunkSize: 16
+  chunkSize: 16,
+  maxSpeed: 5,
+  acceleration: 20
 }
 let viewDistance = null,
   velocity = new Vector(),
-  offsetX = 0, // player position
-  offsetY = 0, // player position
+  offsetX = -window.innerWidth/2-options.tileSize/2, // player position
+  offsetY = -window.innerHeight/2-options.tileSize/2, // player position
   movement = {up:false,down:false,right:false,left:false};
 
 // canvas setup
 const canvas = document.getElementById("canvas");
-const rect = canvas.getBoundingClientRect();
-canvas.width = Math.round(devicePixelRatio * rect.right) - Math.round (devicePixelRatio * rect.left);
-canvas.height = Math.round(devicePixelRatio * rect.bottom) - Math.round (devicePixelRatio * rect.top);
+canvas.width = window.innerWidth;
+canvas.height = window.innerHeight;
 const ctx = canvas.getContext("2d");
 ctx.mozImageSmoothingEnabled = false;
 ctx.webkitImageSmoothingEnabled = false;
@@ -54,6 +55,7 @@ setInterval(() => {
 // draw
 function draw () {
   map.draw(ctx, offsetX, offsetY);
+  map.drawBlocks(ctx, offsetX, offsetY);
   player.draw(ctx, canvas, options.tileSize);
 }
 
@@ -61,19 +63,28 @@ function draw () {
 // movement
 function calculateMovement (timeSinceLastFrame) {
   if (movement.up) {
-    offsetY += 5;
+    if(velocity.y < options.maxSpeed) velocity.y += options.maxSpeed/options.acceleration;
+  } else {
+    if (velocity.y > 0) velocity.y -= options.maxSpeed/options.acceleration;
   }
   if (movement.down) {
-    offsetY += -5;
+    if(velocity.y > -options.maxSpeed) velocity.y -= options.maxSpeed/options.acceleration;
+  } else {
+    if (velocity.y < 0) velocity.y += options.maxSpeed/options.acceleration;
   }
   if (movement.left) {
-    offsetX += 5;
+    if(velocity.x < options.maxSpeed) velocity.x += options.maxSpeed/options.acceleration;
+  } else {
+    if (velocity.x > 0) velocity.x -= options.maxSpeed/options.acceleration;
   }
   if (movement.right) {
-    offsetX += -5;
+    if(velocity.x > -options.maxSpeed) velocity.x -= options.maxSpeed/options.acceleration;
+  } else {
+    if (velocity.x < 0) velocity.x += options.maxSpeed/options.acceleration;
   }
+  offsetY += velocity.y;
+  offsetX += velocity.x;
 }
-
 document.body.addEventListener ("keydown", (e) => {
   if(e.key.toLowerCase() == "w" || e.key == "ArrowUp") movement.up = true;
   if(e.key.toLowerCase() == "a" || e.key == "ArrowLeft") movement.left = true;

@@ -30,8 +30,8 @@ export default class Player {
         this.out = true;
       }
     }
-    if(this.attacking && this.out) {
-      if(this.handOffset > 0) {
+    if (this.attacking && this.out) {
+      if (this.handOffset > 0) {
         this.handOffset -= 3;
       } else {
         this.attacking =  false;

@@ -1,4 +1,5 @@
 import Tile from "./tile.js";
+import Vector from "./vector.js";
 
 export default class Map {
   constructor (_options, viewDistance) {
@@ -14,10 +15,12 @@ export default class Map {
 
   // generate new chunk
   generateChunk (x, y) {
+    let wood = 0;
     let chunk = {
       x: x,
       y: y,
       terrain: [],
+      blocks : []
     };
     for(let rowIndex = 0;rowIndex < this.chunkSize;rowIndex++) {
       let row = [];
@@ -27,13 +30,23 @@ export default class Map {
             (x * this.chunkSize + colIndex),
             (y * this.chunkSize + rowIndex + 1)
           ),
-          {
-            x: x*this.chunkSize+colIndex,
-            y: y*this.chunkSize+rowIndex
-          });
+          new Vector(
+            x*this.chunkSize+colIndex,
+            y*this.chunkSize+rowIndex
+          )
+        );
         row.push(tile);
       }
       chunk.terrain.push(row);
+    }
+    let row = Math.floor(Math.random() * this.chunkSize);
+    let col = Math.floor(Math.random() * this.chunkSize);
+    if (chunk.terrain[row][col].name === "grass") {
+      chunk.blocks = new Array(this.chunkSize);
+      for(let i = 0;i < this.chunkSize;i++) {
+        chunk.blocks[i] = new Array(this.chunkSize);
+      }
+      chunk.blocks[row][col] = new Tile("wood", new Vector(row, col));
     }
     this.chunks.push(chunk);
     return chunk;
@@ -107,5 +120,9 @@ export default class Map {
         });
       }
     }
+  }
+
+  drawBlocks (ctx, offsetX, offsetY) {
+
   }
 }

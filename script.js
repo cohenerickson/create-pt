@@ -18,8 +18,9 @@ let viewDistance = null,
 
 // canvas setup
 const canvas = document.getElementById("canvas");
-canvas.width = window.innerWidth;
-canvas.height = window.innerHeight;
+const rect = canvas.getBoundingClientRect();
+canvas.width = Math.round(devicePixelRatio * rect.right) - Math.round (devicePixelRatio * rect.left);
+canvas.height = Math.round(devicePixelRatio * rect.bottom) - Math.round (devicePixelRatio * rect.top);
 const ctx = canvas.getContext("2d");
 ctx.mozImageSmoothingEnabled = false;
 ctx.webkitImageSmoothingEnabled = false;

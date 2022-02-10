@@ -1,0 +1,26 @@
+<canvas id="canvas"></canvas>
+<script>
+  const canvas = document.getElementById("canvas");
+  canvas.width = 16;
+  canvas.height = 16;
+  const ctx = canvas.getContext("2d");
+
+  const colors = [
+    "#cfcfcf",
+    "#afafaf",
+    "#8f8f8f",
+    "#707070",
+    "#505050",
+    "#303030"
+  ];
+
+  for(let y = 0;y < 16;y++) {
+    for(let x = 0;x < 16;x++) {
+      ctx.mozImageSmoothingEnabled = false;
+      ctx.webkitImageSmoothingEnabled = false;
+      ctx.imageSmoothingEnabled = false;
+      ctx.fillStyle = colors[Math.floor(Math.random()*colors.length)];
+      ctx.fillRect(x, y, 1, 1);
+    }
+  }
+</script>

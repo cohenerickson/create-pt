@@ -17,6 +17,8 @@ for(let i = 0;i < Tiles.length;i++) {
 }
 let wood = new Image();
 wood.src = "./assets/wood.png";
+let leaf = new Image();
+leaf.src = "./assets/leaf.png";
 
 // new tile class
 export default class Tile {
@@ -34,6 +36,7 @@ export default class Tile {
   toTile(int) {
     if(typeof(int) == 'string') {
       if(int === "wood") return new Wood();
+      else if(int === "leaf") return new Leaf();
     } else {
       if(int < -0.5) return new Water();
       else if(int < -0.4) return new Sand();
@@ -104,6 +107,15 @@ class Wood {
     this.color = undefined;
     this.texture = wood;
     this.name = "wood";
+    this.collidable = true;
+  }
+}
+
+class Leaf {
+  constructor () {
+    this.color = undefined;
+    this.texture = leaf;
+    this.name = "leaf";
     this.collidable = true;
   }
 }

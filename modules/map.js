@@ -1,5 +1,6 @@
 import Tile from "./tile.js";
 import Vector from "./vector.js";
+import Structures from "./structures.js"
 
 export default class Map {
   constructor (_options, viewDistance) {
@@ -39,17 +40,8 @@ export default class Map {
       }
       chunk.terrain.push(row);
     }
-    let row = Math.floor(Math.random() * this.chunkSize);
-    let col = Math.floor(Math.random() * this.chunkSize);
-    //if (chunk.terrain[row][col].name === "grass") {
-      chunk.blocks = new Array(this.chunkSize);
-      for(let i = 0;i < this.chunkSize;i++) {
-        chunk.blocks[i] = new Array(this.chunkSize);
-      }
-      chunk.blocks[row][col] = new Tile("wood", new Vector(row, col));
-    //}
-    console.log(chunk);
     this.chunks.push(chunk);
+    chunk = Structures.tree(chunk, x, y, this);
     return chunk;
   }
 
@@ -76,7 +68,6 @@ export default class Map {
 
   draw (ctx, offsetX, offsetY) {
     // clear canvas
-    ctx.globalAlpha = 1;
     ctx.fillStyle = "white";
     ctx.fillRect(0, 0, canvas.width, canvas.height);
     // get chunks near player
@@ -145,7 +136,6 @@ export default class Map {
             ctx.fillStyle = tile.color;
             // for some reason having these lines compacted increases preformance
             if (tile.vector) {
-              console.log(tile.vector)
               ctx.drawImage(tile.texture,Math.round(tile.vector.x * this.tileSize + offsetX + canvas.width/2),Math.round(tile.vector.y * this.tileSize + offsetY + canvas.height/2),this.tileSize,this.tileSize);
             }
           });

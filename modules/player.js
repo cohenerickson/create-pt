@@ -17,7 +17,6 @@ export default class Player {
   }
 
   draw (ctx, canvas, tileSize) {
-    ctx.globalAlpha = 1;
     ctx.save();
     ctx.translate(canvas.width/2, canvas.height/2);
     ctx.rotate(-Math.atan2(clientX - window.innerWidth/2, clientY - window.innerHeight/2) + Math.PI);
@@ -25,14 +24,14 @@ export default class Player {
     ctx.drawImage(hand, -tileSize/2, -tileSize/2-this.handOffset, tileSize, tileSize/4);
     if(this.attacking && !this.out) {
       if(this.handOffset < 15) {
-        this.handOffset += 3;
+        this.handOffset += 1.5;
       } else {
         this.out = true;
       }
     }
     if (this.attacking && this.out) {
       if (this.handOffset > 0) {
-        this.handOffset -= 3;
+        this.handOffset -= 1.5;
       } else {
         this.attacking =  false;
         this.out = false;

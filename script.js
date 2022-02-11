@@ -83,6 +83,7 @@ function calculateMovement (timeSinceLastFrame) {
   } else {
     if (velocity.x < 0) velocity.x += options.maxSpeed/options.acceleration;
   }
+  
   offsetY += velocity.y;
   offsetX += velocity.x;
 }

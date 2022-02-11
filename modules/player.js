@@ -24,14 +24,14 @@ export default class Player {
     ctx.drawImage(hand, -tileSize/2, -tileSize/2-this.handOffset, tileSize, tileSize/4);
     if(this.attacking && !this.out) {
       if(this.handOffset < 15) {
-        this.handOffset += 1.5;
+        this.handOffset += 3;
       } else {
         this.out = true;
       }
     }
     if (this.attacking && this.out) {
       if (this.handOffset > 0) {
-        this.handOffset -= 1.5;
+        this.handOffset -= 3;
       } else {
         this.attacking =  false;
         this.out = false;

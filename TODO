@@ -1,8 +1,9 @@
-Draw blocks ontop of terrain 
-Inventory
-Leaves
 Player collisions
 World saving
 Crafting
 Gameplay...
 Enimies
+Rock throwing
+Health
+Each hand drawn individually
+world checks for trees on chunk borders/chunk que

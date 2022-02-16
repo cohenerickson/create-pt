@@ -143,4 +143,64 @@ export default class Map {
       }
     }
   }
+
+  // collition calculations
+  // credit to barkai lazimy
+  // also kinda broken rn
+  doesCollide (vector, ctx) {
+  //   //console.log(vector);
+  //   let currentChunkX = Math.floor((-(vector.x) - canvas.width/2)/this.chunkSize/this.tileSize);
+  //   let currentChunkY = Math.floor((-(vector.y) - canvas.height/2)/this.chunkSize/this.tileSize);
+
+  //   // console.log(new Vector(
+  //   //   currentChunkX,
+  //   //   currentChunkY
+  //   // ));
+
+  //   let tileX = -vector.x;
+  //   let tileY = -vector.y;
+    
+  //   //ctx.fillStyle = "black";
+  //   //ctx.fillRect(tileX, tileY, this.tileSize, this.tileSize);
+
+  //   let chunk = this.getChunkAt(currentChunkX, currentChunkY);
+    
+  //   var vissibleX = canvas.width / this.tileSize;
+  //   var vissibleY = canvas.height / this.tileSize;
+
+  //   // brr
+  //   // var tileOfset = new Vector(
+  //   //   vector.x / this.tileSize % window.innerWidth,
+  //   //   vector.y / this.tileSize % window.innerHeight
+  //   // );
+
+  //   var pos = new Vector();
+  //   pos.y = -Math.round(vector.x / this.tileSize)%16;
+  //   pos.x = -Math.round(vector.y / this.tileSize)%16;
+
+  //   var tilePos = new Vector(Math.round(pos.x), Math.round(pos.y));
+  //   var tile = chunk.terrain[tilePos.y][tilePos.x];
+	// console.log(tile);
+
+  //   ctx.fillStyle = 'rgb(0,1,0,0.2)';
+  //   ctx.fillRect(
+  //     Math.round(pos.x * this.tileSize + (vector.y + this.tileSize) + canvas.width / 2) - this.tileSize * 1.5,
+  //     Math.round(pos.y * this.tileSize + (vector.x + this.tileSize) + canvas.height / 2) - this.tileSize * 1.5,
+  //     this.tileSize,
+  //     this.tileSize
+  //   );
+
+    return new Vector();
+  }
+
+  // needs testing
+  // getPlayerPosition (vector) {
+  //   let position = new Vector();
+
+  //   // yeet
+  //   positon.x = Math.floor(vector.x/this.tileSize);
+  //   position.y = Math.floor(vector.y/this.tileSize);
+
+  //   return position;
+  // }
 }

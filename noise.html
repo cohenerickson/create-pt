@@ -4,8 +4,6 @@
   canvas.width = 16;
   canvas.height = 16;
   const ctx = canvas.getContext("2d");
-  let wood = new Image();
-  wood.src = "https://create-pt.cohenerickson.repl.co/assets/wood.png";
 
   const colors = [
     "#cfcfcf",
@@ -16,14 +14,6 @@
     "#303030"
   ];
   
-  wood.onload = function () {
-    ctx.drawImage(
-      wood,
-      0,
-      0
-    );
-    ctx.globalAlpha = 0.1;
-
   for(let y = 0;y < 16;y++) {
     for(let x = 0;x < 16;x++) {
       ctx.mozImageSmoothingEnabled = false;
@@ -33,11 +23,4 @@
       ctx.fillRect(x, y, 1, 1);
     }
   }
-  }
-
-  wood.onerror = function(e) {
-    alert(e);
-  }
-
-  
 </script>

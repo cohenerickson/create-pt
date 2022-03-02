@@ -55,7 +55,7 @@ export default class Map {
   }
 
   // get chunk at chunk x and y position
-  getChunkAt(x, y) {
+  getChunkAt (x, y) {
     let chunk;
     for(let i = 0; i < this.chunks.length;i++) {
       if(this.chunks[i].x == x && this.chunks[i].y == y) {
